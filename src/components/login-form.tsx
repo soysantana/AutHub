@@ -30,9 +30,9 @@ export function LoginForm({
             <FieldGroup>
               <div className="flex flex-col items-center gap-2 text-center">
                 <img src="/logo.png" alt="public/" className="h-14 w-14" />
-                <h1 className="text-2xl font-bold">Mi Colmado RD</h1>
+                <h1 className="text-2xl font-bold">Auth Hub</h1>
                 <p className="text-balance text-muted-foreground">
-                  Inicia sesión en tu cuenta de Colamdo RD
+                  Inicia sesión en tu cuenta de Auth Hub
                 </p>
               </div>
               <Field>
@@ -40,7 +40,7 @@ export function LoginForm({
                 <Input
                   id="email"
                   type="email"
-                  placeholder="2022-0835@colrd.com"
+                  placeholder="2022-0835@authub.com"
                   required
                 />
               </Field>
@@ -48,7 +48,7 @@ export function LoginForm({
                 <div className="flex items-center">
                   <FieldLabel htmlFor="password">Contraseña</FieldLabel>
                   <a
-                    href="#"
+                    href="/forget"
                     className="ml-auto text-sm underline-offset-2 hover:underline"
                   >
                     ¿Olvidaste tu contraseña?
@@ -98,8 +98,8 @@ export function LoginForm({
           </form>
           <div className="relative hidden bg-muted md:block">
             <img
-              src="/placeholder.jpg"
-              alt="public/"
+              src="src/assets/images/auth_login_1.webp"
+              alt="Login/"
               className="absolute inset-0 h-full w-full object-cover"
             />
           </div>
