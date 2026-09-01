@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { Eye, EyeOff, LogIn } from "lucide-react"
+import { Eye, EyeOff, LockKeyhole } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -12,10 +12,10 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 
-export function LoginForm() {
+export function ResetPasswordForm() {
   const navigate = useNavigate()
-  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState("")
   const [isLoading, setIsLoading] = useState(false)
@@ -24,13 +24,13 @@ export function LoginForm() {
     e.preventDefault()
     setError("")
 
-    if (!email.includes("@")) {
-      setError("Ingresa un correo electrónico válido.")
+    if (password.length < 8) {
+      setError("La contraseña debe tener al menos 8 caracteres.")
       return
     }
 
-    if (password.length < 8) {
-      setError("La contraseña debe tener al menos 8 caracteres.")
+    if (password !== confirmPassword) {
+      setError("Las contraseñas no coinciden.")
       return
     }
 
@@ -45,50 +45,26 @@ export function LoginForm() {
     <form className="mx-auto w-full max-w-sm" onSubmit={handleSubmit}>
       <FieldGroup>
         <div className="flex flex-col items-center gap-3 text-center">
-          <img
-            src="/logo.png"
-            alt="Auth Hub"
-            className="h-14 w-14 rounded-lg"
-          />
+          <span className="flex size-12 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+            <LockKeyhole className="size-5" />
+          </span>
           <div>
-            <h2 className="text-2xl font-bold">Iniciar sesión</h2>
+            <h2 className="text-2xl font-bold">Crea una nueva contraseña</h2>
             <p className="mt-2 text-sm leading-6 text-muted-foreground">
-              Accede con tu correo institucional y mantén tus sesiones bajo
-              control.
+              Usa una contraseña segura para recuperar el acceso a tu cuenta.
             </p>
           </div>
         </div>
 
         <Field>
-          <FieldLabel htmlFor="email">Correo electrónico</FieldLabel>
-          <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="2022-0835@authub.com"
-            autoComplete="email"
-            required
-          />
-        </Field>
-
-        <Field>
-          <div className="flex items-center">
-            <FieldLabel htmlFor="password">Contraseña</FieldLabel>
-            <Link
-              to="/forget"
-              className="ml-auto text-sm text-primary underline-offset-4 hover:underline"
-            >
-              ¿Olvidaste tu contraseña?
-            </Link>
-          </div>
+          <FieldLabel htmlFor="new-password">Nueva contraseña</FieldLabel>
           <div className="relative">
             <Input
-              id="password"
+              id="new-password"
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              autoComplete="current-password"
+              autoComplete="new-password"
               required
               minLength={8}
               className="pr-10"
@@ -106,23 +82,35 @@ export function LoginForm() {
               {showPassword ? <EyeOff /> : <Eye />}
             </Button>
           </div>
+        </Field>
+
+        <Field>
+          <FieldLabel htmlFor="confirm-new-password">
+            Confirmar contraseña
+          </FieldLabel>
+          <Input
+            id="confirm-new-password"
+            type={showPassword ? "text" : "password"}
+            value={confirmPassword}
+            onChange={(event) => setConfirmPassword(event.target.value)}
+            autoComplete="new-password"
+            required
+            minLength={8}
+          />
+          <FieldDescription>
+            Debe tener al menos 8 caracteres y coincidir con la anterior.
+          </FieldDescription>
           <FieldError>{error}</FieldError>
         </Field>
 
         <Field>
-          <Button type="submit" disabled={isLoading} className="h-10">
-            <LogIn className="size-4" />
-            {isLoading ? "Validando..." : "Entrar"}
+          <Button type="submit" disabled={isLoading}>
+            {isLoading ? "Guardando..." : "Guardar contraseña"}
           </Button>
         </Field>
 
         <FieldDescription className="text-center">
-          ¿No tienes una cuenta? <Link to="/register">Crear cuenta</Link>
-        </FieldDescription>
-
-        <FieldDescription className="text-center text-xs">
-          Al continuar aceptas los términos de servicio y la política de
-          privacidad.
+          ¿Recordaste tu acceso? <Link to="/login">Volver al inicio</Link>
         </FieldDescription>
       </FieldGroup>
     </form>

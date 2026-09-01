@@ -1,11 +1,14 @@
+import tokenImage from "@/assets/images/auth_register_1.webp"
+import { AuthLayout } from "@/components/auth/auth-layout"
 import { ForgeTokenForm } from "@/components/token-login-form"
 
 export default function ForgeTokenPage() {
   return (
-    <div className="flex min-h-svh flex-col items-center justify-center bg-muted p-6 md:p-10">
-      <div className="w-full max-w-sm md:max-w-4xl">
-        <ForgeTokenForm />
-      </div>
-    </div>
+    <AuthLayout
+      imageSrc={tokenImage}
+      imageAlt="Validación de token de recuperación"
+    >
+      <ForgeTokenForm />
+    </AuthLayout>
   )
 }
