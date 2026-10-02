@@ -523,9 +523,7 @@ Aplicaciones
 ```
 
 De esta manera, una aplicación puede delegar la autenticación a AutHub y concentrarse en su propia lógica de negocio.
-
 ---
-
 ## Licencia
 
 Este proyecto se encuentra actualmente en desarrollo.
